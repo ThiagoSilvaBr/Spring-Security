@@ -1,6 +1,6 @@
 package com.cr.spring_security.services;
 
-import com.cr.spring_security.models.Pessoa;
+import com.cr.spring_security.models.PessoaModel;
 import com.cr.spring_security.repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,18 +11,18 @@ import java.util.Optional;
 public class PessoaService {
 
     @Autowired
-    private PessoaRepository repository;
+    private PessoaRepository pessoaRepository;
 
-    public PessoaMoPessoadel create(Pessoa model) {
-        return repository.save(model);
+    public PessoaModel create(PessoaModel pessoamodel) {
+        return pessoaRepository.save(pessoamodel);
     }
 
-    public List<Pessoa> findAll() {
-        return repository.findAll();
+    public List<PessoaModel> findAll() {
+        return pessoaRepository.findAll();
     }
 
-    public Optional<Pessoa> findById(Long id) {
-        return repository.findById(id);
+    public Optional<PessoaModel> findById(Long id) {
+        return pessoaRepository.findById(id);
     }
 
 }

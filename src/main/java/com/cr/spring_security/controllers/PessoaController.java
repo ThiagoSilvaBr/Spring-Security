@@ -1,6 +1,7 @@
 package com.cr.spring_security.controllers;
 
-import com.cr.spring_security.models.Pessoa;
+import com.cr.spring_security.models.PessoaModel;
+import com.cr.spring_security.models.PessoaModel;
 import com.cr.spring_security.services.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,11 @@ import java.util.Optional;
 public class PessoaController {
 
     @Autowired
-    private PessoaService service;
+    private PessoaService pessoaService;
 
     @PostMapping
-    public ResponseEntity<Pessoa> create(@RequestBody Pessoa model) {
-        Pessoa request = service.create(model);
+    public ResponseEntity<PessoaModel> create(@RequestBody PessoaModel model) {
+        PessoaModel request = pessoaService.create(model);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(request.getId()).toUri();
@@ -28,14 +29,14 @@ public class PessoaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Pessoa>> findAll() {
-        List<Pessoa> request = service.findAll();
+    public ResponseEntity<List<PessoaModel>> findAll() {
+        List<PessoaModel> request = pessoaService.findAll();
         return ResponseEntity.ok().body(request);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Pessoa>> findById(@PathVariable Long id) {
-        Optional<Pessoa> request = service.findById(id);
+    public ResponseEntity<Optional<PessoaModel>> findById(@PathVariable Long id) {
+        Optional<PessoaModel> request = pessoaService.findById(id);
         if(request.isPresent()) {
             return ResponseEntity.ok().body(request);
         }
