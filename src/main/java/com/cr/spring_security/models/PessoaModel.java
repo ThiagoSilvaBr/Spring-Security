@@ -15,5 +15,7 @@ public class PessoaModel {
     @GeneratedValue
     private Long id;
     private String nome;
+    @OneToMany
+    private List<JobModel> trabalhosList = new ArrayList<>();
 
 }
