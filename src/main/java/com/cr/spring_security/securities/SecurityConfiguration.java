@@ -12,14 +12,19 @@ import org.springframework.stereotype.Controller;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    //Isso configura que qualquer usuário pode utilizar o get sem estar verificado
+    //Isso configura que qualquer usuário pode utilizar os modificadores sem estar verificado.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         return httpSecurity.csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers
-                        (HttpMethod.GET, "/pessoas").permitAll()).build();
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers(HttpMethod.GET, "/pessoas").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/pessoas").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/pessoas/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/pessoas/**").permitAll())
+                .build();
     }
+
 
 }
