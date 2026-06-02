@@ -3,7 +3,9 @@ package com.cr.spring_security.controllers;
 import com.cr.spring_security.models.PessoaModel;
 import com.cr.spring_security.models.PessoaModel;
 import com.cr.spring_security.services.PessoaService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,8 +26,8 @@ public class PessoaController {
                                                           PessoaModel model) {
         PessoaModel request = pessoaService.create(model);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(request.getId()).toUri();
+                .path("/{id}").buildAndExpand(model.getId()).toUri();
+
         return ResponseEntity.created(uri).body(request);
     }
 
@@ -36,12 +38,15 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")// Identifica que será feita uma busca pelo ID
-    public ResponseEntity<Optional<PessoaModel>> findById(@PathVariable Long id) {
-        Optional<PessoaModel> request = pessoaService.findById(id);
-        if(request.isPresent()) {
-            return ResponseEntity.ok().body(request);
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<PessoaModel> findById(@PathVariable
+                                                    Long id) {
+        PessoaModel request = pessoaService.findById(id);
+        return ResponseEntity.ok().body(request);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PessoaModel> updatePessoa(@PathVariable Long id, @RequestBody PessoaModel pessoaModel){
+        PessoaModel request = pessoaService.update(id, pessoaModel);
+        return ResponseEntity.ok().body(request);
+    }
 }
