@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "tb_users")
-@Data
+@Data// tem o contrutor e todos os getters e setters
 public class User implements UserDetails {
 
     @Id

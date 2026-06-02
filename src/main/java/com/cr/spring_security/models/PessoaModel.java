@@ -1,10 +1,10 @@
 package com.cr.spring_security.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_pessoas")
@@ -15,7 +15,7 @@ public class PessoaModel {
     @GeneratedValue
     private Long id;
     private String nome;
-    @OneToMany
+    @OneToMany // Fala que a classe pode receber diferentes tipos de relacionamento de uma classe
     private List<JobModel> trabalhosList = new ArrayList<>();
 
 }

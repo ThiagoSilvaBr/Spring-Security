@@ -12,15 +12,16 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/pessoas")
+@RestController//Identifica a classe como um controlador Rest
+@RequestMapping("/pessoas")// Cria endpoint para fazer pesquisas.
 public class PessoaController {
 
-    @Autowired
+    @Autowired// Injeta dependencias
     private PessoaService pessoaService;
 
-    @PostMapping
-    public ResponseEntity<PessoaModel> create(@RequestBody PessoaModel model) {
+    @PostMapping// Identifica que aquele metodo cria uma pessoa
+    public ResponseEntity<PessoaModel> create(@RequestBody/*Fala que a requisição passa pelo corpo*/
+                                                          PessoaModel model) {
         PessoaModel request = pessoaService.create(model);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -28,13 +29,13 @@ public class PessoaController {
         return ResponseEntity.created(uri).body(request);
     }
 
-    @GetMapping
+    @GetMapping// Identifica que será feito uma busca
     public ResponseEntity<List<PessoaModel>> findAll() {
         List<PessoaModel> request = pessoaService.findAll();
         return ResponseEntity.ok().body(request);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")// Identifica que será feita uma busca pelo ID
     public ResponseEntity<Optional<PessoaModel>> findById(@PathVariable Long id) {
         Optional<PessoaModel> request = pessoaService.findById(id);
         if(request.isPresent()) {

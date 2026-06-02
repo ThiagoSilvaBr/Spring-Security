@@ -5,12 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity
+@Entity //Identifica que a classe é uma entidade
 //ou colocar @Data (nao precisa de construtor nem getter ou setterrs)
 public class JobModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id//identifica que é um ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// gera automaticamente os Id
     private Long id;
     private String nome;
     private String endereco;
